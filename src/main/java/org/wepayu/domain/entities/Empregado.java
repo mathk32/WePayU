@@ -23,5 +23,10 @@ public class Empregado {
     @JoinColumn(name = "pagamento_id")
     private Agenda pagamento;
 
+    public Empregado(String nome, String tipo){
+        this.nome = nome;
+        this.tipo = Contrato.valueOf(tipo);
+
+    }
 
 }
