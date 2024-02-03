@@ -1,4 +1,4 @@
-package org.wepayu.domain.entities.DAO;
+package org.wepayu.domain.DAO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
