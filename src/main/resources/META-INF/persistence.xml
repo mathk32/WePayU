@@ -7,7 +7,7 @@
 
     <persistence-unit name="wepayu">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-
+        <mapping-file>META-INF/consultas.xml</mapping-file>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/wepayu" />
@@ -16,6 +16,9 @@
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
             <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.show_sql
+" value="true"/>
+
         </properties>
     </persistence-unit>
 
