@@ -1,10 +1,15 @@
 package org.wepayu.domain.entities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.wepayu.domain.entities.enums.Contrato;
 
 @Entity
 @Table(name = "Empregados")
+@Getter
+@Setter
 public class Empregado {
 
     @Id
@@ -23,10 +28,16 @@ public class Empregado {
     @JoinColumn(name = "pagamento_id")
     private Agenda pagamento;
 
-    public Empregado(String nome, String tipo){
+    @Builder()
+    public Empregado(Integer id, String nome, String endereco, String tipo, Sindicato sindicato, Agenda pagamento){
+        this.id = id;
         this.nome = nome;
+        this.endereco = endereco;
         this.tipo = Contrato.valueOf(tipo);
+        this.sindicato = sindicato;
+        this.pagamento = pagamento;
 
     }
+    public Empregado(){}
 
 }
