@@ -2,6 +2,7 @@ package org.wepayu.controller;
 
 import org.wepayu.domain.DAO.DAO;
 import org.wepayu.domain.dto.EmpregadoDTO;
+import org.wepayu.domain.dto.EmpregadoSPDTO;
 import org.wepayu.domain.entities.Empregado;
 import org.wepayu.service.EmpregadoService;
 
@@ -25,8 +26,8 @@ public class EmpregadoController {
     }
 
 
-    public void salvar_empregado(EmpregadoDTO empregado_dto){
-        empregado_service.save(empregado_dto);
+    public Integer salvar_empregado(EmpregadoDTO empregado_dto){
+        return empregado_service.save(empregado_dto);
     }
 
     public Empregado busca_id(Integer id ) throws Exception {
@@ -42,7 +43,12 @@ public class EmpregadoController {
         }).collect(Collectors.toList());
     }
     public void atualizar_dados_pessoais(Integer id, EmpregadoDTO empregado_dto) throws Exception {
-        empregado_service.update_dados_pessoais(2, empregado_dto);
+        empregado_service.update_dados_pessoais(id, empregado_dto);
+    }
+
+    public void atualizar_sinicato_pagamento(EmpregadoSPDTO empregadosp_dto, Integer id) throws Exception {
+        empregado_service.update_sindicato_agenda(empregadosp_dto,id);
+
     }
 }
 
