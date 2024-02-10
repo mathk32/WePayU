@@ -24,17 +24,17 @@ public class Cartao_ponto {
     private LocalTime Saida;
 
     private LocalDate dia;
+    private Float vendas;
     @ManyToOne
     @JoinColumn(name = "empregado_id")
     private Empregado empregado;
 
-
-
-    public Cartao_ponto(LocalTime Entrada, LocalTime Saida, Empregado empregado, LocalDate dia){
+    public Cartao_ponto(LocalTime Entrada, LocalTime Saida, Empregado empregado, LocalDate dia, Float vendas){
         this.Entrada = Entrada;
         this.Saida = Saida;
         this.empregado = empregado;
         this.dia = dia;
+        this.vendas = vendas;
 
     }
 

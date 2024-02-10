@@ -2,7 +2,7 @@ package org.wepayu.domain.entities;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +16,9 @@ public class Banco {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "Corrente")
+    @NotBlank(message = "Não pode ser vazio.")
     private String conta_corrente;
+    @NotBlank(message = "Não pode ser vazio.")
     private String agencia;
 
     public Banco(String conta_corrente, String agencia) {
