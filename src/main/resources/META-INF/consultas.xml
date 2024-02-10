@@ -16,4 +16,12 @@
             UPDATE Cartao_ponto e SET e.Saida = :saida WHERE e.dia = :dia
         </query>
     </named-query>
+    <named-query name="Cartao_ponto.findCartoesPontoPorPeriodo">
+        <query>
+            SELECT cp FROM Cartao_ponto cp
+            WHERE cp.empregado.id = :empregadoId
+            AND cp.dia BETWEEN :dataInicial AND :dataFinal
+        </query>
+    </named-query>
 </entity-mappings>
+

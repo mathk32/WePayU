@@ -1,0 +1,107 @@
+zerarSistema
+id1=criarEmpregado nome="Joao da Silva" endereco="Rua dos Jooes, 333 - Campina Grande" \
+	tipo=horista salario=23
+expect "Joao da Silva" getAtributoEmpregado emp=${id1} atributo=nome
+expect "Rua dos Jooes, 333 - Campina Grande" getAtributoEmpregado emp=${id1} atributo=endereco
+expect horista getAtributoEmpregado emp=${id1} atributo=tipo
+expect false getAtributoEmpregado emp=${id1} atributo=sindicalizado
+# pode ter dois empregados com o mesmo nome
+id2=criarEmpregado nome="Joao da Silva" endereco="Rua dos Jooes, 333 - Campina Grande" \
+	tipo=horista salario=23
+expectDifferent ${id1} echo ${id2}
+expect "Joao da Silva" getAtributoEmpregado emp=${id1} atributo=nome
+expect "Rua dos Jooes, 333 - Campina Grande" getAtributoEmpregado emp=${id1} atributo=endereco
+expect horista getAtributoEmpregado emp=${id1} atributo=tipo
+expect false getAtributoEmpregado emp=${id1} atributo=sindicalizado
+expect "Joao da Silva" getAtributoEmpregado emp=${id2} atributo=nome
+expect "Rua dos Jooes, 333 - Campina Grande" getAtributoEmpregado emp=${id2} atributo=endereco
+expect horista getAtributoEmpregado emp=${id2} atributo=tipo
+expect false getAtributoEmpregado emp=${id2} atributo=sindicalizado
+
+# outros tipos de empregados
+id4=criarEmpregado nome="Mariazinha" endereco="Rua das Marias, 333 - Campina Grande" \
+	tipo=assalariado salario=2300.45
+expect "Mariazinha" getAtributoEmpregado emp=${id4} atributo=nome
+expect "Rua das Marias, 333 - Campina Grande" getAtributoEmpregado emp=${id4} atributo=endereco
+expect assalariado getAtributoEmpregado emp=${id4} atributo=tipo
+
+expect false getAtributoEmpregado emp=${id4} atributo=sindicalizado
+
+id5=criarEmpregado nome="Gaiato Vendedor" endereco="Rua dos Bufoes, 333 - Campina Grande" \
+	tipo=comissionado salario=2300.45 comissao=0.05
+expect "Gaiato Vendedor" getAtributoEmpregado emp=${id5} atributo=nome
+expect "Rua dos Bufoes, 333 - Campina Grande" getAtributoEmpregado emp=${id5} atributo=endereco
+expect comissionado getAtributoEmpregado emp=${id5} atributo=tipo
+expect false getAtributoEmpregado emp=${id5} atributo=sindicalizado
+
+# erros
+expectError "Nome nao pode ser nulo." criarEmpregado nome="" endereco="Rua dos Jooes, 333 - Campina Grande" \
+	tipo=horista salario=23.32
+expectError "Endereco nao pode ser nulo." criarEmpregado nome="Joao da Silva" endereco="" \
+	tipo=horista salario=23.32
+expectError "Tipo invalido." criarEmpregado nome="Joao da Silva" endereco="Rua dos Jooes, 333 - Campina Grande" \
+	tipo=abc salario=23.32
+expectError "Salario nao pode ser nulo." criarEmpregado nome="Joao da Silva" endereco="Rua dos Jooes, 333 - Campina Grande" \
+	tipo=horista salario=""
+expectError "Salario deve ser numerico." criarEmpregado nome="Joao da Silva" endereco="Rua dos Jooes, 333 - Campina Grande" \
+	tipo=horista salario=abc
+expectError "Salario deve ser nao-negativo." criarEmpregado nome="Joao da Silva" endereco="Rua dos Jooes, 333 - Campina Grande" \
+	tipo=horista salario=-1
+expectError "Comissao nao pode ser nula." criarEmpregado nome="Joao da Silva" endereco="Rua dos Jooes, 333 - Campina Grande" \
+	tipo=comissionado salario=1 comissao=""
+expectError "Comissao deve ser nao-negativa." criarEmpregado nome="Joao da Silva" endereco="Rua dos Jooes, 333 - Campina Grande" \
+	tipo=comissionado salario=1 comissao=-1
+expectError "Comissao deve ser numerica." criarEmpregado nome="Joao da Silva" endereco="Rua dos Jooes, 333 - Campina Grande" \
+	tipo=comissionado salario=1 comissao=a
+# User Story de adicao de empregado
+id1=criarEmpregado nome="Joao da Silva" endereco="Rua dos Jooes, 333 - Campina Grande" \
+	tipo=horista salario=23
+expect "Joao da Silva" getAtributoEmpregado emp=${id1} atributo=nome
+expect "Rua dos Jooes, 333 - Campina Grande" getAtributoEmpregado emp=${id1} atributo=endereco
+expect horista getAtributoEmpregado emp=${id1} atributo=tipo
+id2=criarEmpregado nome="Maria" endereco="Rua dos Jooes, 333 - Campina Grande" \
+	tipo=horista salario=23
+expect "Maria" getAtributoEmpregado emp=${id2} atributo=nome
+expect "Rua dos Jooes, 333 - Campina Grande" getAtributoEmpregado emp=${id2} atributo=endereco
+expect horista getAtributoEmpregado emp=${id2} atributo=tipo
+id2=criarEmpregado nome="Maria" endereco="Rua dos Jooes, 333 - Campina Grande" \
+	tipo=horista salario=23
+expect "Maria" getAtributoEmpregado emp=${id2} atributo=nome
+expect "Rua dos Jooes, 333 - Campina Grande" getAtributoEmpregado emp=${id2} atributo=endereco
+expect horista getAtributoEmpregado emp=${id2} atributo=tipo
+# erros
+expectError "Identificacao do empregado nao pode ser nula." removerEmpregado emp=""
+expectError "Empregado nao existe." removerEmpregado emp=abc
+#remover
+removerEmpregado emp=${id1}
+#expectError "Empregado nao existe." removerEmpregado emp=${id1}
+#expectError "Empregado nao existe." getAtributoEmpregado emp=${id1} atributo=nome
+expect "Maria" getAtributoEmpregado emp=${id2} atributo=nome
+expect "Rua dos Jooes, 333 - Campina Grande" getAtributoEmpregado emp=${id2} atributo=endereco
+expect horista getAtributoEmpregado emp=${id2} atributo=tipo
+# User Story de remocao de empregado (teste de persistencia)
+#expectError "Nao ha empregado com esse nome." getEmpregadoPorNome nome="Joao da Silva" indice=1
+#id2=getEmpregadoPorNome nome="Maria" indice=1
+expect "Maria" getAtributoEmpregado emp=${id2} atributo=nome
+expect "Rua dos Jooes, 333 - Campina Grande" getAtributoEmpregado emp=${id2} atributo=endereco
+expect horista getAtributoEmpregado emp=${id2} atributo=tipo
+#lancamento cartao_ponto
+id1=criarEmpregado nome="Joao da Silva" endereco="Rua dos Jooes, 333 - Campina Grande" \
+	tipo=horista salario=23
+id2=criarEmpregado nome="Mariazinha" endereco="Rua das Marias, 333 - Campina Grande" \
+	tipo=horista salario=2300
+id3=criarEmpregado nome="Gaiato Vendedor" endereco="Rua dos Bufoes, 333 - Campina Grande" \
+	tipo=comissionado salario=1300 comissao=0.05
+id4=criarEmpregado nome="Gorete" endereco="Rua das Marias, 333 - Campina Grande" \
+	tipo=assalariado salario=2300
+
+# User Story de alteracao de empregado
+id1=criarEmpregado nome="Joao da Silva" endereco="Rua dos Jooes, 333 - Campina Grande" \
+	tipo=horista salario=23
+# valores iniciais
+expect "Joao da Silva" getAtributoEmpregado emp=${id1} atributo=nome
+expect "Rua dos Jooes, 333 - Campina Grande" getAtributoEmpregado emp=${id1} atributo=endereco
+expect horista getAtributoEmpregado emp=${id1} atributo=tipo
+
+
+
