@@ -1,5 +1,6 @@
 package org.wepayu.controller;
 
+import jakarta.validation.Valid;
 import org.wepayu.domain.DAO.DAO;
 import org.wepayu.domain.dto.EmpregadoDTO;
 import org.wepayu.domain.dto.EmpregadoSPDTO;
@@ -26,12 +27,30 @@ public class EmpregadoController {
     }
 
 
-    public Integer salvar_empregado(EmpregadoDTO empregado_dto){
+    public Integer salvar_empregado(@Valid  EmpregadoDTO empregado_dto) {
+
         return empregado_service.save(empregado_dto);
     }
+    public Object getAtributoEmpregado(Integer empregadoId, String atributo) throws Exception {
+        Empregado empregado = empregado_service.find_by_id(empregadoId);
+        switch (atributo) {
+            case "nome":
+                return empregado.getNome();
+            case "endereco":
+                return empregado.getEndereco();
+            case "tipo":
+                return String.valueOf(empregado.getTipo());
+            case "sindicalizado":
+                return String.valueOf(empregado.getSindicato() != null);
+            default:
+                throw new IllegalArgumentException("Atributo não reconhecido: " + atributo);
+        }
+    }
+
 
     public Empregado busca_id(Integer id ) throws Exception {
-        return empregado_service.find_by_id(id);
+       Empregado empregado = empregado_service.find_by_id(id);
+       return empregado;
     }
 
     public void remover_id(Integer id) throws Exception {

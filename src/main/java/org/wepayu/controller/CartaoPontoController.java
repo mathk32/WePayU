@@ -8,6 +8,8 @@ import org.wepayu.service.CartaoPontoService;
 import java.time.LocalDate;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class CartaoPontoController {
     private static CartaoPontoService cartaoponto_service;
@@ -20,11 +22,13 @@ public class CartaoPontoController {
 
     }
 
-    public Integer Entry(LocalTime entrada, Integer id, LocalDate dia){
-        return cartaoponto_service.entrada(entrada, id, dia);
+    public Integer Entry(LocalTime entrada, Integer id, LocalDate dia,Float vendas){
+        return cartaoponto_service.entrada(entrada, id, dia,vendas);
     }
 
     public  void get_out(LocalTime saida, LocalDate dia){
          cartaoponto_service.saida(saida,dia);
     }
+
+
 }

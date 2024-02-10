@@ -23,7 +23,7 @@ public class SindicatoController {
         return sindicato_service.save(sindicato);
     }
 
-    public void remover(Integer id){
+    public void remover(Integer id) throws Exception {
         sindicato_service.remove(id);
     }
 
