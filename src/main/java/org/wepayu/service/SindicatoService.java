@@ -39,7 +39,7 @@ public class SindicatoService {
         }
     }
 
-    public void remove(Integer id){
+    public void remove(Integer id) throws Exception {
         DAO<Empregado> dao_empregado = new DAO(Empregado.class);
         EntityManager entity_empregado = dao_empregado.getEntityManager();
         entity_empregado.getTransaction().begin();
@@ -47,6 +47,9 @@ public class SindicatoService {
         List<Empregado> empregados = entity_empregado.createNamedQuery("Sindicato.findEmpregadoForId", Empregado.class)
                 .setParameter("id", id)
                 .getResultList();
+        if(empregados.isEmpty()){
+            throw new Exception("Empregado nao existe.");
+        }
         for (Empregado empregado_encontrado : empregados) {
             empregado_encontrado.setSindicato(null);
             entity_empregado.persist(empregado_encontrado);

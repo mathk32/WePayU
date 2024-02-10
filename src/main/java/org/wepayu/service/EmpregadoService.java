@@ -12,6 +12,7 @@ import org.wepayu.domain.entities.enums.Contrato;
 import java.util.List;
 import java.util.Optional;
 
+
 public class EmpregadoService {
     private DAO<Empregado> empregado_dao;
     private EntityManager entity;
